@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Empleado;
 use App\Http\Requests\StoreEmpleadoRequest;
 use App\Http\Requests\UpdateEmpleadoRequest;
+use Illuminate\Http\Request;
 
 class EmpleadoController extends Controller
 {
@@ -21,7 +22,7 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        //
+        return view('empleado');
     }
 
     /**
@@ -29,7 +30,27 @@ class EmpleadoController extends Controller
      */
     public function store(StoreEmpleadoRequest $request)
     {
-        //
+        $request->validate([
+            'fecha_nacimiento' => 'required|date|before:today',
+        ]);
+
+        // Validación de datos
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'dui' => 'required|string|max:255',
+            'telefono_fijo' => 'required|string|max:255',
+            'telefono_mobile' => 'required|string|max:255',
+            'fecha_ingreso' => 'required|date',
+            'fecha_nacimiento' => 'required|date',
+            'email' => 'required|email|max:255',
+            'activo' => 'boolean'
+            // 'posicion' => 'required|string|max:255',
+        ]);
+
+        // Guardar el empleado (lógica de almacenamiento aquí)
+        $empleado = Empleado::create($validatedData);
+
+        return redirect()->route('empleado.create')->with('success', 'Empleado creado con éxito.');
     }
 
     /**
