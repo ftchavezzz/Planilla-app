@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DepartamentoSeeder extends Seeder
 {
@@ -12,6 +12,13 @@ class DepartamentoSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        DB::table('departamentos')->insert([
+            ['id' => '1', 'nombre' => 'Recursos Humanos'],
+            ['id' => '2', 'nombre' => 'Marketing'],
+            ['id' => '3', 'nombre' => 'Finanzas'],
+            ['id' => '4', 'nombre' => 'Tecnología de la Información'],
+            ['id' => '5', 'nombre' => 'Ventas'],
+            ['id' => '6', 'nombre' => 'Operaciones']
+        ]);
     }
 }
