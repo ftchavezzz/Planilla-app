@@ -30,12 +30,13 @@ class EmpleadoController extends Controller
      */
     public function store(StoreEmpleadoRequest $request)
     {
-        $request->validate([
-            'fecha_nacimiento' => 'required|date|before:today',
-        ]);
+        // $request->validate([
+        //     'fecha_nacimiento' => 'required|date|before:today',
+        // ]);
 
         // Validación de datos
         $validatedData = $request->validate([
+            'puesto_id' => 'required|integer',
             'nombre' => 'required|string|max:255',
             'dui' => 'required|string|max:255',
             'telefono_fijo' => 'required|string|max:255',

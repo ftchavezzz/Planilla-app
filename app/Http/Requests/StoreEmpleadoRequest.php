@@ -11,7 +11,7 @@ class StoreEmpleadoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,6 +22,7 @@ class StoreEmpleadoRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'puesto_id' => 'required|integer',
             'nombre' => 'required|string|max:255',
             'dui' => 'required|string|max:255',
             'telefono_fijo' => 'required|string|max:255',
