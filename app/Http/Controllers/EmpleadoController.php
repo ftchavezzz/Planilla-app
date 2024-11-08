@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empleado;
+use App\Models\Departamento;
+use App\Models\Puesto;
+use App\Models\Contrato;
 use App\Http\Requests\StoreEmpleadoRequest;
 use App\Http\Requests\UpdateEmpleadoRequest;
 use Illuminate\Http\Request;
@@ -22,7 +25,10 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        return view('empleado');
+        $departamentos = Departamento::all();
+        $puestos = Puesto::all();
+        $contratos = Contrato::all();
+        return view('empleado', ["departamentos"=>$departamentos ,"puestos"=>$puestos,"contratos"=>$contratos]);
     }
 
     /**
