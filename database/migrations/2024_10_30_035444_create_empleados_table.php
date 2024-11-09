@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('fecha_ingreso');
             $table->date('fecha_nacimiento');
             $table->boolean('activo');
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }

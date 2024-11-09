@@ -24,6 +24,7 @@ class EmpleadoSeeder extends Seeder
                 'fecha_ingreso' => '2020-01-10',
                 'fecha_nacimiento' => '1985-03-15',
                 'activo' => false,
+                'email' => 'correo1@gmail.com',
             ],
             [
                 'id' => '2',
@@ -35,6 +36,7 @@ class EmpleadoSeeder extends Seeder
                 'fecha_ingreso' => '2019-05-20',
                 'fecha_nacimiento' => '1990-07-22',
                 'activo' => true,
+                'email' => 'correo2@gmail.com',
             ],
             [
                 'id' => '3',
@@ -46,6 +48,7 @@ class EmpleadoSeeder extends Seeder
                 'fecha_ingreso' => '2021-03-15',
                 'fecha_nacimiento' => '1988-11-30',
                 'activo' => true,
+                'email' => 'correo3@gmail.com',
             ],
             [
                 'id' => '4',
@@ -57,6 +60,7 @@ class EmpleadoSeeder extends Seeder
                 'fecha_ingreso' => '2022-06-01',
                 'fecha_nacimiento' => '1995-01-05',
                 'activo' => false,
+                'email' => 'correo4@gmail.com',
             ],
             [
                 'id' => '5',
@@ -68,6 +72,7 @@ class EmpleadoSeeder extends Seeder
                 'fecha_ingreso' => '2021-11-12',
                 'fecha_nacimiento' => '1983-09-17',
                 'activo' => true,
+                'email' => 'correo5@gmail.com',
             ],
             [
                 'id' => '6',
@@ -79,6 +84,7 @@ class EmpleadoSeeder extends Seeder
                 'fecha_ingreso' => '2020-08-25',
                 'fecha_nacimiento' => '1992-04-29',
                 'activo' => true,
+                'email' => 'correo6@gmail.com',
             ],
             [
                 'id' => '7',
@@ -90,6 +96,7 @@ class EmpleadoSeeder extends Seeder
                 'fecha_ingreso' => '2018-07-15',
                 'fecha_nacimiento' => '1980-12-12',
                 'activo' => true,
+                'email' => 'correo7@gmail.com',
             ],
             [
                 'id' => '8',
@@ -101,6 +108,7 @@ class EmpleadoSeeder extends Seeder
                 'fecha_ingreso' => '2023-02-20',
                 'fecha_nacimiento' => '1994-10-05',
                 'activo' => true,
+                'email' => 'correo8@gmail.com',
             ]
         ];
         

@@ -12,7 +12,6 @@ class EmpleadoContrato extends Model
     protected $fillable = [
         'empleado_id',
         'contrato_id',
-        'puesto_id',
         'fecha_inicio',
         'fecha_fin',
         'vigente',
