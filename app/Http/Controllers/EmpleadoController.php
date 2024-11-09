@@ -18,7 +18,8 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        //
+        $empleados = Empleado::all();
+        return view('empleado_index', ["empleados"=>$empleados]);
     }
 
     /**
@@ -83,9 +84,11 @@ class EmpleadoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Empleado $empleado)
+    public function edit($id)
     {
-        //
+        $empleado = Empleado::findOrFail($id);
+        $contratoEmpleado = EmpleadoContrato::where('empleado_id', $id)->get();
+        return view("ficha_empleado", ["empleado"=>$empleado, "contrato" => $contratoEmpleado]);
     }
 
     /**

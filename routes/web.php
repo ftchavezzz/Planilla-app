@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\FichaEmpleadoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,5 @@ Route::get('/', function () {
 
 Route::get('/empleado/crear', [EmpleadoController::class, 'create'])->name('empleado.create');
 Route::post('/empleado', [EmpleadoController::class, 'store'])->name('empleado.store');
+Route::get('/empleado/{id}/ficha', [EmpleadoController::class, 'edit'])->name('empleado.ficha.create');
+Route::get('/empleado', [EmpleadoController::class, 'index'])->name('empleado.index');
