@@ -27,10 +27,10 @@ class StoreEmpleadoRequest extends FormRequest
             'dui' => 'required|string|max:255',
             'telefono_fijo' => 'required|string|max:255',
             'telefono_mobile' => 'required|string|max:255',
-            'fecha_ingreso' => 'required|date',
+            'fecha_ingreso' => 'date',
             'fecha_nacimiento' => 'required|date',
-            'email' => 'required|email|max:255',
-            'activo' => 'boolean'
+            // 'email' => 'email|max:255',
+            // 'activo' => 'boolean'
         ];
     }
 }

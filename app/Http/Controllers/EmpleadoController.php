@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empleado;
+use App\Models\Departamento;
+use App\Models\Puesto;
+use App\Models\Contrato;
 use App\Http\Requests\StoreEmpleadoRequest;
 use App\Http\Requests\UpdateEmpleadoRequest;
 use Illuminate\Http\Request;
@@ -22,7 +25,10 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        return view('empleado');
+        $departamentos = Departamento::all();
+        $puestos = Puesto::all();
+        $contratos = Contrato::all();
+        return view('empleado', ["departamentos"=>$departamentos ,"puestos"=>$puestos,"contratos"=>$contratos]);
     }
 
     /**
@@ -41,17 +47,17 @@ class EmpleadoController extends Controller
             'dui' => 'required|string|max:255',
             'telefono_fijo' => 'required|string|max:255',
             'telefono_mobile' => 'required|string|max:255',
-            'fecha_ingreso' => 'required|date',
+            // 'fecha_ingreso' => 'required|date',
             'fecha_nacimiento' => 'required|date',
-            'email' => 'required|email|max:255',
-            'activo' => 'boolean'
+            // 'email' => 'email|max:255',
+            // 'activo' => 'boolean'
             // 'posicion' => 'required|string|max:255',
         ]);
 
         // Guardar el empleado (lógica de almacenamiento aquí)
         $empleado = Empleado::create($validatedData);
 
-        return redirect()->route('empleado.create')->with('success', 'Empleado creado con éxito.');
+        return redirect()->route('principal')->with('success', 'Empleado creado con éxito.');
     }
 
     /**
