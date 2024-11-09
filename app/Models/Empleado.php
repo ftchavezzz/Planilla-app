@@ -15,9 +15,9 @@ class Empleado extends Model
         'dui',
         'telefono_fijo',
         'telefono_mobile',
-        'fecha_ingreso',
+        // 'fecha_ingreso',
         'fecha_nacimiento',
-        'email',
-        'activo'
+        // 'email',
+        // 'activo'
     ];
 }

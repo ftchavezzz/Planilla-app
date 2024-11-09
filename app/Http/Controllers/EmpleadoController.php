@@ -47,17 +47,17 @@ class EmpleadoController extends Controller
             'dui' => 'required|string|max:255',
             'telefono_fijo' => 'required|string|max:255',
             'telefono_mobile' => 'required|string|max:255',
-            'fecha_ingreso' => 'required|date',
+            // 'fecha_ingreso' => 'required|date',
             'fecha_nacimiento' => 'required|date',
-            'email' => 'required|email|max:255',
-            'activo' => 'boolean'
+            // 'email' => 'email|max:255',
+            // 'activo' => 'boolean'
             // 'posicion' => 'required|string|max:255',
         ]);
 
         // Guardar el empleado (lógica de almacenamiento aquí)
         $empleado = Empleado::create($validatedData);
 
-        return redirect()->route('empleado.create')->with('success', 'Empleado creado con éxito.');
+        return redirect()->route('principal')->with('success', 'Empleado creado con éxito.');
     }
 
     /**
