@@ -15,4 +15,8 @@ class Puesto extends Model
         'salario_mensual',
         'salario_hora'
     ];
+    
+    public function empleados() {
+        return $this->hasMany(Empleado::class);
+    }
 }

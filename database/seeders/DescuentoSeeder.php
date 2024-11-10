@@ -20,7 +20,7 @@ class DescuentoSeeder extends Seeder
             ['id' => '4', 'nombre' => 'OID Banco America Central', 'descripcion' => 'Orden irrevocable de descuento firmado por RRHH'],
             ['id' => '5', 'nombre' => 'OID Banco Agricola', 'descripcion' => 'Orden irrevocable de descuento firmado por RRHH'],
             ['id' => '6', 'nombre' => 'OID Banco Azteca', 'descripcion' => 'Orden irrevocable de descuento firmado por RRHH'],
-            ['id' => '7', 'nombre' => 'OID Banco Scottiabank', 'descripcion' => 'Orden irrevocable de descuento firmado por RRHH'],
+            ['id' => '7', 'nombre' => 'OID Banco Scotiabank', 'descripcion' => 'Orden irrevocable de descuento firmado por RRHH'],
             ['id' => '8', 'nombre' => 'OID Banco Azul', 'descripcion' => 'Orden irrevocable de descuento firmado por RRHH'],
             ['id' => '9', 'nombre' => 'OID Cajas de Credito', 'descripcion' => 'Orden irrevocable de descuento firmado por RRHH'],
             ['id' => '10', 'nombre' => 'Descuentos por Préstamos', 'descripcion' => 'Descuento aplicado segun la cuota calculada en base al prestamo realizado'],

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Salario;
+use App\Models\Descuento;
+use App\Models\Leydescuento;
+use App\Models\Empleado;
 use App\Http\Requests\StoreSalarioRequest;
 use App\Http\Requests\UpdateSalarioRequest;
 
@@ -21,7 +24,18 @@ class SalarioController extends Controller
      */
     public function create()
     {
-        //
+        $descuentos = array_merge(Leydescuento::obtenerNombres(), Descuento::obtenerNombres());
+        $empleados = Empleado::all();
+        foreach ($empleados as $empleado) {
+            //dd($empleado->puesto());
+            $empleado->descuentos = $empleado->calcularDescuentos();
+        }
+
+        /*$empleado = Empleado::find(1);
+        dd($empleado->puesto);*/
+
+
+        return view('calculoSalario ', compact('descuentos', 'empleados'));
     }
 
     /**
