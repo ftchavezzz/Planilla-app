@@ -29,3 +29,7 @@ Route::get('/empleado/{id}', [EmpleadoController::class, 'show'])->name('emplead
 Route::get('/empleado', [EmpleadoController::class, 'index'])->name('empleado.index');
 Route::get('/empleado/{id}/ficha', [FichaEmpleadoController::class, 'edit'])->name('empleado.ficha.edit');
 Route::post('/empleado/{empleado_id}/descuento', [FichaEmpleadoController::class, 'store'])->name('empleado_descuento.store');
+
+// rutas para editar empleado
+Route::get('/empleado/{id}/edit', [EmpleadoController::class, 'edit'])->name('empleado.edit');
+Route::put('/empleado/{id}', [EmpleadoController::class, 'update'])->name('empleado.update');

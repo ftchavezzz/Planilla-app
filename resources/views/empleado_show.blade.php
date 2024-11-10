@@ -1,6 +1,6 @@
 @extends('principal')
 
-@section('title','Ficha Empleado')
+@section('title','Empleado')
 
 @section('content')
 
@@ -47,7 +47,7 @@
                         <div class="row mb-4">
                             <div class="col-6 col-md-6 col-lg-6">
                                 <label for="email" class="form-label">Correo Electrónico</label>
-                                <input type="email" class="form-control form-control-sm col-md-3 col-lg-2" id="email" name="email" required>
+                                <input type="email" value="{{$empleado->email}}" class="form-control form-control-sm col-md-3 col-lg-2" id="email" name="email" required>
                             </div>
                         </div> 
                     </div>
@@ -58,13 +58,13 @@
                             <div class="col-6 col-md-6 col-lg-6">
                                 <label for="departamento" class="form-label">Departamento</label>
                                 <select class="form-select form-select-sm col-md-3 col-lg-2" id="departamento" placeholder="Seleccione el departamento" name="departamento" required>
-                                    <option value="">--Escoja un departamento--</option>
+                                    <option value="{{ $departamento->nombre }}" selected disabled>{{$departamento->nombre}}</option>
                                 </select>
                             </div>
                             <div class="col-6 col-md-6 col-lg-6">
                                 <label for="puesto" class="form-label">Puesto</label>
-                                <select class="form-select form-select-sm col-md-3 col-lg-2" id="departamento" placeholder="Seleccione el departamento" name="departamento" required>
-                                    <option value="">--Escoja un puesto--</option>
+                                <select class="form-select form-select-sm col-md-3 col-lg-2" id="puesto" placeholder="Seleccione el puesto" name="puesto" required>
+                                    <option value="{{ $puesto->nombre }}" selected disabled>{{$puesto->nombre}}</option>
                                 </select>
                             </div>
                         </div>
@@ -81,9 +81,8 @@
                         <div class="row mb-4">
                             <div class="col-6 col-md-6 col-lg-6">
                                 <label for="puesto" class="form-label">Tipo de Contrato</label>
-                                <select class="form-select form-select-sm col-md-3 col-lg-2" id="departamento" placeholder="Seleccione el departamento" name="departamento" required>
-                                <option value="">--Escoja un contrato--</option>
-
+                                <select class="form-select form-select-sm col-md-3 col-lg-2" id="tipoContrato" placeholder="Seleccione el tipo contrato" name="tipoContrato" required>
+                                    <option value="{{$tipoContrato->tipo_contrato}}">{{$tipoContrato->tipo_contrato}}</option>
                                 </select>
                             </div>
                         </div>

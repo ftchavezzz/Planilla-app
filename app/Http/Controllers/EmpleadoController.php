@@ -80,7 +80,16 @@ class EmpleadoController extends Controller
     {
         $empleado = Empleado::findOrFail($id);
         $contratoEmpleado = EmpleadoContrato::where('empleado_id', $id)->first();
-        return view("empleado_show", ["empleado"=>$empleado, "contrato" => $contratoEmpleado]);
+        $puesto = Puesto::where('id', $empleado->puesto_id)->first();
+        $departamento = Departamento::where('id', $puesto->departamento_id)->first();
+        $tipoContrato = Contrato::where('id', $contratoEmpleado->contrato_id)->first();
+        return view("empleado_show", [
+            "empleado"=>$empleado,
+            "contrato" => $contratoEmpleado, 
+            "puesto" => $puesto, 
+            "departamento" => $departamento,
+            "tipoContrato" => $tipoContrato
+        ]);
     }
 
     /**
@@ -89,16 +98,62 @@ class EmpleadoController extends Controller
     public function edit($id)
     {
         $empleado = Empleado::findOrFail($id);
-        $contratoEmpleado = EmpleadoContrato::where('empleado_id', $id)->get();
-        return view("ficha_empleado", ["empleado"=>$empleado, "contrato" => $contratoEmpleado]);
+        $contratoEmpleado = EmpleadoContrato::where('empleado_id', $id)->first();
+        $puesto = Puesto::where('id', $empleado->puesto_id)->first();
+        $departamento = Departamento::where('id', $puesto->departamento_id)->first();
+
+        $departamentos = Departamento::all();
+        $puestos = Puesto::all();
+        $tipoContrato = Contrato::all();
+        return view("empleado_edit", ["empleado"=>$empleado, "contrato" => $contratoEmpleado, "puestos" => $puestos, 
+            "departamentos" => $departamentos,
+            "tipoContratos" => $tipoContrato,
+            "depart" => $departamento]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEmpleadoRequest $request, Empleado $empleado)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            // Validación de datos
+            $validatedData = $request->validate([
+                'puesto_id' => 'required|integer',
+                'nombre' => 'required|string|max:255',
+                'dui' => 'required|string|max:255',
+                'telefono_fijo' => 'required|string|max:255',
+                'telefono_mobile' => 'required|string|max:255',
+                // 'fecha_ingreso' => 'required|date',
+                'fecha_nacimiento' => 'required|date',
+                'email' => 'email|max:255',
+                'activo' => 'boolean',
+                // 'posicion' => 'required|string|max:255',
+            ]);
+
+            // Guardar el empleado 
+            $empleado = Empleado::findOrFail($id);
+
+            $empleado->update($validatedData);
+        
+            $validatedDataEC = $request->validate([ 
+                'contrato_id' => 'required|integer',
+                'fecha_inicio' => 'required|date',
+                'fecha_fin' => 'required|date',
+                'vigente' => 'boolean',
+            ]);
+
+            //Asignando el id empleado al contrato_empleado
+            $validatedDataEC['empleado_id'] = $empleado->id;
+
+            $contratoEmpleado = EmpleadoContrato::where('empleado_id', $id)->first();
+            $contratoEmpleado->update($validatedDataEC);
+
+        
+        } catch (\Exception $e) {
+            dd($e->getMessage());  // Muestra el error si ocurre
+        }
+        return redirect()->route('empleado.index')->with('success', 'Empleado creado con éxito.');
     }
 
     /**
