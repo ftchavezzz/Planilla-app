@@ -38,7 +38,7 @@
                             <td>{{ $empleado->telefono_mobile}} {{ $empleado->telefono_fijo}}</td>
                             <td class="estado" data-estado="{{ $empleado->activo}}">{{ $empleado->activo}}</td>
                             <td>
-                                <button class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i></button>
+                                <a href="{{ route('empleado.edit', $empleado->id) }}"><button class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i></button></a>
                                 <a href="{{ route('empleado.show', $empleado->id) }}"><button class="btn btn-info"><i class="fa-regular fa-eye" style="color: white;"></i></button></a>
                                 <button class="btn btn-danger"><i class="fa-regular fa-trash-can" ></i></button>
                                 <a href="{{ route('empleado.ficha.edit', $empleado->id) }}"><button class="btn btn-primary"><i class="fa-regular fa-address-card" ></i></button></a>
