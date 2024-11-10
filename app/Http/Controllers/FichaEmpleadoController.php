@@ -7,8 +7,11 @@ use App\Models\Departamento;
 use App\Models\Empleado;
 use App\Models\Puesto;
 use App\Models\EmpleadoContrato;
+use App\Models\Descuento;
+use App\Models\EmpleadoDescuento;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
 class FichaEmpleadoController extends Controller
 {
@@ -31,9 +34,26 @@ class FichaEmpleadoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEmpleadoRequest $request)
+    public function store(Request $request, $empleado_id)
     {
+         // Validar que el campo 'montos' sea un array y que cada valor sea numérico
+        $validated = $request->validate([
+            'montos' => 'required|array',
+            'montos.*' => 'numeric|min:0',
+        ]);
 
+        // Recorrer cada descuento y guardar solo aquellos que tienen un monto mayor a cero
+        foreach ($validated['montos'] as $descuento_id => $monto) {
+            if ($monto > 0) {
+                EmpleadoDescuento::create([
+                    'empleado_id' => $empleado_id,
+                    'descuento_id' => $descuento_id,
+                    'monto' => $monto,
+                ]);
+            }
+        }
+
+        return redirect()->route('empleado.ficha.edit', ['id' => $empleado_id])->with('success', 'Descuentos guardados con éxito.');
     }
 
     /**
@@ -54,20 +74,22 @@ class FichaEmpleadoController extends Controller
         $puesto = Puesto::where('id', $empleado->puesto_id)->first();
         $departamento = Departamento::where('id', $puesto->departamento_id)->first();
         $tipoContrato = Contrato::where('id', $contratoEmpleado->contrato_id)->first();
+        $descuentos = Descuento::all();
         
         return view("ficha_empleado", [
             "empleado"=>$empleado,
             "contrato" => $contratoEmpleado, 
             "puesto" => $puesto, 
             "departamento" => $departamento,
-            "tipoContrato" => $tipoContrato
+            "tipoContrato" => $tipoContrato,
+            "descuentos" => $descuentos
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEmpleadoRequest $request, Empleado $empleado)
+    public function update(Request $request, Empleado $empleado)
     {
         //
     }

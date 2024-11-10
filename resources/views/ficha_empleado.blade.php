@@ -10,7 +10,7 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <div class="container mt-5">
+            <div class="container mt-5">
                 <div class="row">
                     <!-- Primer cuadro -->
                     <div class="card card-with-title p-3 mb-4 border-2 border-dark">
@@ -82,13 +82,43 @@
                             <div class="col-6 col-md-6 col-lg-6">
                                 <label for="tipoContrato" class="form-label">Tipo de Contrato</label>
                                 <select class="form-select form-select-sm col-md-3 col-lg-2" id="tipoContrato" placeholder="Seleccione el tipoContrato" name="tipoContrato" required>
-                                <option value="{{$tipoContrato->tipo_contrato}}">{{$tipoContrato->tipo_contrato}}</option>
+                                <option value="{{$tipoContrato->tipo_contrato}}" selected disabled>{{$tipoContrato->tipo_contrato}}</option>
                                 </select>
                             </div>
                         </div>
-                    </div>   
+                    </div> 
+                    <form action="{{ route('empleado_descuento.store', ['empleado_id' => $empleado->id]) }}" method="POST">
+                        @csrf
+                        <div class="card card-with-title p-3 mb-4 mt-5 border-2 border-dark">
+                            <!-- Título que interrumpe el borde -->
+                            <span class="card-title">Descuentos</span>
+                            <div class="col-lg-16 col-md-12 col-sm-12 col-xs-12">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-condensed table-hover text-left">
+                                        <thead class="table-dark">
+                                            <th>Nombre del Descuento</th>
+                                            <th>Monto</th>
+                                        </thead>
+                                        @foreach ($descuentos as $descuento)
+                                        <tr>
+                                            <td>{{ $descuento->nombre}}</td>
+                                            <td>
+                                                <input type="number" name="montos[{{ $descuento->id }}]" class="form-control" step="0.01" min="0" value="0">
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col mb-2 ">
+                                    <button type="submit" class="btn btn-primary">Agregar Descuento</button>
+                                </div>
+                            </div>
+                        </div> 
+                    </form>
                 </div>
-        </div>
+            </div>
     </div>
 
 
