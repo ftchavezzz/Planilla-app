@@ -47,7 +47,7 @@
                         <div class="row mb-4">
                             <div class="col-6 col-md-6 col-lg-6">
                                 <label for="email" class="form-label">Correo Electrónico</label>
-                                <input type="email" class="form-control form-control-sm col-md-3 col-lg-2" id="email" name="email" required>
+                                <input type="email" value="{{$empleado->email}}" class="form-control form-control-sm col-md-3 col-lg-2" id="email" name="email" required>
                             </div>
                         </div> 
                     </div>
@@ -58,13 +58,13 @@
                             <div class="col-6 col-md-6 col-lg-6">
                                 <label for="departamento" class="form-label">Departamento</label>
                                 <select class="form-select form-select-sm col-md-3 col-lg-2" id="departamento" placeholder="Seleccione el departamento" name="departamento" required>
-                                    <option value="">--Escoja un departamento--</option>
+                                    <option value="{{ $departamento->nombre }}" selected disabled>{{$departamento->nombre}}</option>
                                 </select>
                             </div>
                             <div class="col-6 col-md-6 col-lg-6">
                                 <label for="puesto" class="form-label">Puesto</label>
                                 <select class="form-select form-select-sm col-md-3 col-lg-2" id="departamento" placeholder="Seleccione el departamento" name="departamento" required>
-                                    <option value="">--Escoja un puesto--</option>
+                                    <option value="{{ $puesto->nombre }}" selected disabled>{{$puesto->nombre}}</option>
                                 </select>
                             </div>
                         </div>
@@ -75,15 +75,14 @@
                             </div>
                             <div class="col-6 col-md-6 col-lg-6">
                                 <label for="fecha_fin" class="form-label">Fecha de Fin</label>
-                                <input type="date" value="{{$contrato->fecha_fin}}" class="form-control form-control-sm col-md-3 col-lg-2" id="fecha_fin" placeholder="Ingresa la fecha que ingreso el empleado" name="fecha_fin" required>
+                                <input type="date" value="{{$contrato->fecha_fin}}" class="form-control form-control-sm col-md-3 col-lg-2" id="fecha_fin" placeholder="Ingresa la fecha que finalizo el empleado" name="fecha_fin" required>
                             </div>
                         </div>
                         <div class="row mb-4">
                             <div class="col-6 col-md-6 col-lg-6">
-                                <label for="puesto" class="form-label">Tipo de Contrato</label>
-                                <select class="form-select form-select-sm col-md-3 col-lg-2" id="departamento" placeholder="Seleccione el departamento" name="departamento" required>
-                                <option value="">--Escoja un contrato--</option>
-
+                                <label for="tipoContrato" class="form-label">Tipo de Contrato</label>
+                                <select class="form-select form-select-sm col-md-3 col-lg-2" id="tipoContrato" placeholder="Seleccione el tipoContrato" name="tipoContrato" required>
+                                <option value="{{$tipoContrato->tipo_contrato}}">{{$tipoContrato->tipo_contrato}}</option>
                                 </select>
                             </div>
                         </div>

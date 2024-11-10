@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contrato;
+use App\Models\Departamento;
 use App\Models\Empleado;
+use App\Models\Puesto;
+use App\Models\EmpleadoContrato;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
 class FichaEmpleadoController extends Controller
@@ -21,8 +26,20 @@ class FichaEmpleadoController extends Controller
     public function create($id)
     {
         $empleado = Empleado::findOrFail($id);
-        $contratoEmpleado = EmpleadoContrato::where('empleado_id', $id)->get();
-        return view("ficha_empleado", ["empleado"=>$empleado, "contrato" => $contratoEmpleado]);
+        $contratoEmpleado = EmpleadoContrato::where('empleado_id', $id)->first();
+        //dump('ESTE ES EL CONTRATO EMPLEADO', $contratoEmpleado);
+        //Log::info('DATOS DE CONTRATO EMPLEADO', $contratoEmpleado);
+        $puesto = Puesto::where('id', $empleado->puesto_id)->first();
+        $departamento = Departamento::where('id', $puesto->departamento_id)->first();
+        $tipoContrato = Contrato::where('id', $contratoEmpleado->contrato_id)->first();
+        dump('ESTE ES EL CONTRATO EMPLEADO', $tipoContrato);
+        return view("ficha_empleado", [
+            "empleado"=>$empleado,
+            "contrato" => $contratoEmpleado, 
+            "puesto" => $puesto, 
+            "departamento" => $departamento,
+            "tipoContrato" => $tipoContrato
+        ]);
     }
 
     /**
