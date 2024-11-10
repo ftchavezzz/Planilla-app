@@ -23,23 +23,9 @@ class FichaEmpleadoController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($id)
+    public function create()
     {
-        $empleado = Empleado::findOrFail($id);
-        $contratoEmpleado = EmpleadoContrato::where('empleado_id', $id)->first();
-        //dump('ESTE ES EL CONTRATO EMPLEADO', $contratoEmpleado);
-        //Log::info('DATOS DE CONTRATO EMPLEADO', $contratoEmpleado);
-        $puesto = Puesto::where('id', $empleado->puesto_id)->first();
-        $departamento = Departamento::where('id', $puesto->departamento_id)->first();
-        $tipoContrato = Contrato::where('id', $contratoEmpleado->contrato_id)->first();
-        dump('ESTE ES EL CONTRATO EMPLEADO', $tipoContrato);
-        return view("ficha_empleado", [
-            "empleado"=>$empleado,
-            "contrato" => $contratoEmpleado, 
-            "puesto" => $puesto, 
-            "departamento" => $departamento,
-            "tipoContrato" => $tipoContrato
-        ]);
+
     }
 
     /**
@@ -61,9 +47,21 @@ class FichaEmpleadoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Empleado $empleado)
+    public function edit($id)
     {
-        //
+        $empleado = Empleado::findOrFail($id);
+        $contratoEmpleado = EmpleadoContrato::where('empleado_id', $id)->first();
+        $puesto = Puesto::where('id', $empleado->puesto_id)->first();
+        $departamento = Departamento::where('id', $puesto->departamento_id)->first();
+        $tipoContrato = Contrato::where('id', $contratoEmpleado->contrato_id)->first();
+        
+        return view("ficha_empleado", [
+            "empleado"=>$empleado,
+            "contrato" => $contratoEmpleado, 
+            "puesto" => $puesto, 
+            "departamento" => $departamento,
+            "tipoContrato" => $tipoContrato
+        ]);
     }
 
     /**

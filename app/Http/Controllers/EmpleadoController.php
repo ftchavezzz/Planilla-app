@@ -76,9 +76,11 @@ class EmpleadoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Empleado $empleado)
+    public function show($id)
     {
-        //
+        $empleado = Empleado::findOrFail($id);
+        $contratoEmpleado = EmpleadoContrato::where('empleado_id', $id)->first();
+        return view("empleado_show", ["empleado"=>$empleado, "contrato" => $contratoEmpleado]);
     }
 
     /**
