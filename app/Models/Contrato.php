@@ -22,4 +22,8 @@ class Contrato extends Model
         //de lo contrario el salario base se calculara con base a las horas trabajadas por el empleado
         return is_null($this->porcentaje_salario_horario);
     }
+
+    public function pagos() {
+        return $this->belongsToMany(Pago::class);
+    }
 }

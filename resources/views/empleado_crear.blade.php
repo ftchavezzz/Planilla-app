@@ -114,8 +114,8 @@
                         </div>
                         <div class="row mb-4">
                             <div class="col-6 col-md-6 col-lg-6">
-                                    <label for="puesto" class="form-label">Tipo de Contrato</label>
-                                    <select class="form-select form-select-sm col-md-3 col-lg-2" id="departamento" placeholder="Seleccione el departamento" name="departamento">
+                                    <label for="contrato" class="form-label">Tipo de Contrato</label>
+                                    <select class="form-select form-select-sm col-md-3 col-lg-2" id="contrato" placeholder="Seleccione el departamento" name="contrato_id">
                                     <option value="">--Escoja un contrato--</option>
                                     @foreach($contratos as $contrato)
                                         <option value="{{$contrato['id']}}"> {{$contrato['tipo_contrato']}}

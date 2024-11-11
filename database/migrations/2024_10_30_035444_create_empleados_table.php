@@ -17,10 +17,11 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('dui');
             $table->string('telefono_fijo')->nullable($value = true);
-            $table->string('telefono_mobile');
+            $table->string('telefono_movil');
             $table->date('fecha_ingreso');
             $table->date('fecha_nacimiento');
             $table->boolean('activo');
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }

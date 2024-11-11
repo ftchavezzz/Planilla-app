@@ -13,4 +13,8 @@ class Pago extends Model
         'nombre',
         'descripcion' 
     ];
+
+    public function contratos() {
+        return $this->belongsToMany(Contrato::class);
+    }
 }

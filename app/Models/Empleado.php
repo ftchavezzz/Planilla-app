@@ -17,8 +17,8 @@ class Empleado extends Model
         'telefono_mobile',
         // 'fecha_ingreso',
         'fecha_nacimiento',
-        // 'email',
-        // 'activo'
+        'email',
+        'activo',
     ];
 
     public function puesto() {

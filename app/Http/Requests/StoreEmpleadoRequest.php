@@ -29,8 +29,8 @@ class StoreEmpleadoRequest extends FormRequest
             'telefono_mobile' => 'required|string|max:255',
             'fecha_ingreso' => 'date',
             'fecha_nacimiento' => 'required|date',
-            // 'email' => 'email|max:255',
-            // 'activo' => 'boolean'
+            'email' => 'email|max:255',
+            'activo' => true,
         ];
     }
 }

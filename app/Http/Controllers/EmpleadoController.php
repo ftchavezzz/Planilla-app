@@ -17,7 +17,8 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        //
+        $empleados = Empleado::all();
+        return view('empleado_index', ["empleados"=>$empleados]);
     }
 
     /**

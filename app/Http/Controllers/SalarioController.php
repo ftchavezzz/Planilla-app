@@ -25,9 +25,8 @@ class SalarioController extends Controller
     public function create()
     {
         $descuentos = array_merge(Leydescuento::obtenerNombres(), Descuento::obtenerNombres());
-        $empleados = Empleado::all();
+        $empleados = Empleado::all()->where('activo', 1);
         foreach ($empleados as $empleado) {
-            //dd($empleado->puesto());
             $empleado->descuentos = $empleado->calcularDescuentos();
         }
 
