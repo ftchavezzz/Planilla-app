@@ -22,15 +22,15 @@ class StoreEmpleadoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'puesto_id' => 'required|integer',
+            /*'puesto_id' => 'required|integer',
             'nombre' => 'required|string|max:255',
             'dui' => 'required|string|max:255',
             'telefono_fijo' => 'required|string|max:255',
-            'telefono_mobile' => 'required|string|max:255',
+            'telefono_movil' => 'required|string|max:255',
             'fecha_ingreso' => 'date',
             'fecha_nacimiento' => 'required|date',
             'email' => 'email|max:255',
-            'activo' => true,
+            'activo' => true,*/
         ];
     }
 }

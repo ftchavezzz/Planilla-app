@@ -14,11 +14,15 @@ class Empleado extends Model
         'nombre',
         'dui',
         'telefono_fijo',
-        'telefono_mobile',
-        // 'fecha_ingreso',
+        'telefono_movil',
+        'fecha_ingreso',
         'fecha_nacimiento',
         'email',
         'activo',
+    ];
+
+    protected $attributes = [
+        'activo' => true
     ];
 
     public function puesto() {
@@ -27,6 +31,10 @@ class Empleado extends Model
 
     public function descuentos() {
         return $this->belongsToMany(Descuento::class, 'empleado_descuento', 'empleado_id', 'descuento_id');
+    }
+
+    public function contratos() {
+        return $this->belonsToMany(Contrato::class, 'empleado_contratos', 'empleado_id', 'contrato_id');
     }
 
     /**

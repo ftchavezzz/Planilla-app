@@ -13,7 +13,7 @@ class EmpleadoSeeder extends Seeder
      */
     public function run(): void
     {
-        $empleados = [
+        /*$empleados = [
             [
                 'id' => '1',
                 'puesto_id' => '1',
@@ -112,6 +112,6 @@ class EmpleadoSeeder extends Seeder
             ]
         ];
         
-        DB::table('empleados')->insert($empleados);
+        DB::table('empleados')->insert($empleados);*/
     }
 }

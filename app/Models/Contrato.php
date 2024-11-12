@@ -26,4 +26,8 @@ class Contrato extends Model
     public function pagos() {
         return $this->belongsToMany(Pago::class);
     }
+
+    public function empleados() {
+        return $this->belonsToMany(Empleado::class, 'empleado_contratos', 'contrato_id', 'empleado_id');
+    }
 }

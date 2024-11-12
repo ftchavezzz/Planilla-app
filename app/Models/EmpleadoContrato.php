@@ -16,4 +16,9 @@ class EmpleadoContrato extends Model
         'fecha_fin',
         'vigente',
     ];
+
+    protected $attributes = [
+        'fecha_fin' => null,
+        'vigente' => true
+    ];
 }

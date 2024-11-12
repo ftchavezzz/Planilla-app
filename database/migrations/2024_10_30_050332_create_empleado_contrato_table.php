@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('empleado_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('contrato_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->date('fecha_inicio');
-            $table->date('fecha_fin');
+            $table->date('fecha_fin')->nullable();
             $table->boolean('vigente');
             $table->timestamps();
         });
