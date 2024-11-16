@@ -87,39 +87,86 @@
                             </div>
                         </div>
                     </div> 
-                    <form action="{{ route('empleado_descuento.store', ['empleado_id' => $empleado->id]) }}" method="POST">
-                        @csrf
-                        <div class="card card-with-title p-3 mb-4 mt-5 border-2 border-dark">
-                            <!-- Título que interrumpe el borde -->
-                            <span class="card-title">Descuentos</span>
-                            <div class="col-lg-16 col-md-12 col-sm-12 col-xs-12">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-condensed table-hover text-left">
-                                        <thead class="table-dark">
-                                            <th>Nombre</th>
-                                            <th>Monto</th>
-                                        </thead>
+                    <div class="card card-with-title p-3 mb-4 mt-5 border-2 border-dark">
+                        <!-- Título que interrumpe el borde -->
+                        <span class="card-title">Descuentos</span>
+                        <div class="col-lg-16 col-md-12 col-sm-12 col-xs-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-condensed table-hover text-left">
+                                    <thead class="table-dark">
+                                        <th>Nombre</th>
+                                        <th>Monto</th>
+                                        <th  class="text-center">Acción</th>
+                                    </thead>
+                                    <tbody>
                                         @foreach ($descuentos as $descuento)
                                         <tr>
-                                            <td>{{ $descuento->descuento->nombre}}</td>
-                                            <td>
-                                                <!-- <input type="number" name="montos[{{ $descuento->id }}]" class="form-control" step="0.01" min="0" value="0"> -->
+                                            <td>{{$descuento->descuento->nombre}}</td>
+                                            <td><!-- <input type="number" name="montos[{{ $descuento->id }}]" class="form-control" step="0.01" min="0" value="0"> -->
                                                 {{ $descuento->monto}}
+                                            </td>
+                                            <td class="text-center">
+                                                <!-- Botón de eliminación -->
+                                                <button type="button" 
+                                                class="btn btn-danger btn-sm"
+                                                data-action="{{ route('empleado_descuento.destroy', $descuento->id) }}" 
+                                                onclick="confirmDelete(this)">Eliminar</button>
                                             </td>
                                         </tr>
                                         @endforeach
-                                    </table>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <form action="{{ route('empleado_descuento.store', ['empleado_id' => $empleado->id]) }}" method="POST">
+                            @csrf
+                            <div class="row">    
+                                <div class="col-md-4">
+                                    <label for="descuento_id" class="form-label fw-bold">Selecciona descuento</label>
+                                    <select name="descuento_id" id="descuento_id" class="form-select" required>
+                                        <option value="" selected disabled>Seleccione un descuento</option>
+                                        @foreach ($descuentosDisponibles as $descuento)
+                                            <option value="{{ $descuento->id }}">{{ $descuento->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="monto" class="form-label  fw-bold">Monto</label>
+                                    <input type="number" name="monto" id="monto[{{ $descuento->id }}]" class="form-control" step="0.01" min="0" placeholder="Ingrese monto" required>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mb-2 mt-3">
                                 <div class="col mb-2 ">
                                     <button type="submit" class="btn btn-primary">Agregar Descuento</button>
                                 </div>
                             </div>
-                        </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <!-- Modal de Confirmación -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de eliminar este descuento? Esta acción no se puede deshacer.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <!-- El botón de eliminar que se activa dinámicamente -->
+                    <form id="deleteForm" action="{{ route('empleado_descuento.destroy', $descuento->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </div>
             </div>
+        </div>
     </div>
 
 
@@ -137,4 +184,15 @@
             font-weight: bold;
         }
     </style>
+    <script>
+        function confirmDelete(button) {
+            const actionUrl = button.getAttribute('data-action'); // Obtén la URL desde el atributo data-action
+            const deleteForm = document.getElementById('deleteForm'); // Encuentra el formulario
+            deleteForm.action = actionUrl; // Asigna la URL al formulario
+
+            // Muestra el modal
+            const deleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+            deleteModal.show();
+        }
+    </script>
 @endsection

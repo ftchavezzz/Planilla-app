@@ -6,7 +6,7 @@
 <div class="container">
     <div class = "row-fluid mt-5">
         <div class="row">
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 d-flex justify-content-between align-items-center">
+        <div class="col-lg-11 col-md-8 col-sm-8 col-xs-12 d-flex justify-content-between align-items-center">
                 <h3>Listado de empleados</h3>
                 <a href="{{ route('empleado.create') }}" class="btn btn-primary ml-auto">
                     Nuevo empleado

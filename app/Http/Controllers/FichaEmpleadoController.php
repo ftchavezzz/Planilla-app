@@ -37,21 +37,22 @@ class FichaEmpleadoController extends Controller
     public function store(Request $request, $empleado_id)
     {
          // Validar que el campo 'montos' sea un array y que cada valor sea numérico
+        // $validated = $request->validate([
+        //     'montos' => 'required|array',
+        //     'montos.*' => 'numeric|min:0',
+        // ]);
         $validated = $request->validate([
-            'montos' => 'required|array',
-            'montos.*' => 'numeric|min:0',
+            'descuento_id' => 'required|exists:descuentos,id',
+            'monto' => 'required|numeric|min:0',
         ]);
 
         // Recorrer cada descuento y guardar solo aquellos que tienen un monto mayor a cero
-        foreach ($validated['montos'] as $descuento_id => $monto) {
-            if ($monto > 0) {
-                EmpleadoDescuento::create([
-                    'empleado_id' => $empleado_id,
-                    'descuento_id' => $descuento_id,
-                    'monto' => $monto,
-                ]);
-            }
-        }
+        EmpleadoDescuento::create([
+            'empleado_id' => $empleado_id,
+            'descuento_id' => $validated['descuento_id'],
+            'monto' => $validated['monto'],
+        ]);
+           
 
         return redirect()->route('empleado.ficha.edit', ['id' => $empleado_id])->with('success', 'Descuentos guardados con éxito.');
     }
@@ -75,6 +76,7 @@ class FichaEmpleadoController extends Controller
         $departamento = Departamento::where('id', $puesto->departamento_id)->first();
         $tipoContrato = Contrato::where('id', $contratoEmpleado->contrato_id)->first();
         $descuentos = EmpleadoDescuento::where('empleado_id', $id)->with('descuento')->get();
+        $descuentosDisponibles = Descuento::all();
         // dd($descuentos);
         return view("ficha_empleado", [
             "empleado"=>$empleado,
@@ -82,7 +84,8 @@ class FichaEmpleadoController extends Controller
             "puesto" => $puesto, 
             "departamento" => $departamento,
             "tipoContrato" => $tipoContrato,
-            "descuentos" => $descuentos
+            "descuentos" => $descuentos,
+            "descuentosDisponibles" => $descuentosDisponibles
         ]);
     }
 
@@ -97,9 +100,12 @@ class FichaEmpleadoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Empleado $empleado)
+    public function destroy($id)
     {
-        //
+        $descuento = EmpleadoDescuento::findOrFail($id);
+        $descuento->delete();
+
+        return redirect()->back()->with('show_success_modal', true);
     }
 
 }
