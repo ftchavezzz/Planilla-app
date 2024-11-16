@@ -159,7 +159,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <!-- El botón de eliminar que se activa dinámicamente -->
-                    <form id="deleteForm" action="{{ route('empleado_descuento.destroy', $descuento->id) }}" method="POST" style="display:inline;">
+                    <form id="deleteForm" action="" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Eliminar</button>

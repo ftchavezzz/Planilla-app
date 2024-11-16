@@ -40,17 +40,40 @@
                             <td>
                                 <a href="{{ route('empleado.edit', $empleado->id) }}"><button class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i></button></a>
                                 <a href="{{ route('empleado.show', $empleado->id) }}"><button class="btn btn-info"><i class="fa-regular fa-eye" style="color: white;"></i></button></a>
-                                <form action="{{ route('empleado.destroy', $empleado->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este empleado?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
-                                </form>
+                                <button type="submit"
+                                class="btn btn-danger" 
+                                data-action="{{ route('empleado.destroy', $empleado->id) }}"
+                                onclick="confirmDeleteEmpleado(this)"
+                                ><i class="fa-regular fa-trash-can"></i></button>
                                 <a href="{{ route('empleado.ficha.edit', $empleado->id) }}"><button class="btn btn-primary"><i class="fa-regular fa-address-card" ></i></button></a>
                             </td>
                         </tr>
                         @endforeach
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal de Confirmación Eliminar Empleado-->
+<div class="modal fade" id="confirmDeleteModalEmpleado" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de eliminar este empleado? Esta acción no se puede deshacer.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <!-- El botón de eliminar que se activa dinámicamente -->
+                <form id="deleteForm" action="" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
             </div>
         </div>
     </div>
@@ -68,6 +91,15 @@
         cell.classList.add('inactivo');
       }
     });
+    function confirmDeleteEmpleado(button) {
+            const actionUrl = button.getAttribute('data-action'); // Obtén la URL desde el atributo data-action
+            const deleteForm = document.getElementById('deleteForm'); // Encuentra el formulario
+            deleteForm.action = actionUrl; // Asigna la URL al formulario
+
+            // Muestra el modal
+            const deleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModalEmpleado'));
+            deleteModal.show();
+        }
 </script>
 
 <style>
