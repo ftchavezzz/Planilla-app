@@ -46,3 +46,6 @@ Route::post('/contrato', [ContratoController::class, 'store'])->name('guardarCon
 Route::get('/contrato/{contrato}', [ContratoController::class, 'show'])->name('francisco.ticas');
 Route::post('/contrato/agregarpago', [ContratoController::class, 'add'])->name('agregarPagoContrato');
 
+
+//ruta para eliminar empleado
+Route::delete('/empleado/{id}', [EmpleadoController::class, 'destroy'])->name('empleado.destroy');

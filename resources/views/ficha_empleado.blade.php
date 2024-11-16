@@ -39,8 +39,8 @@
                                 <input type="text" value="{{$empleado->telefono_fijo}}" class="form-control form-control-sm col-md-3 col-lg-2" id="telefono_fijo" name="telefono_fijo" maxlength="9" required>
                             </div>
                             <div class="col-6 col-md-6 col-lg-6">
-                                <label for="telefono_mobile" class="form-label">Telefono Celular</label>
-                                <input type="text" value="{{$empleado->telefono_mobile}}" class="form-control form-control-sm col-md-3 col-lg-2" id="telefono_mobile" name="telefono_mobile" maxlength="9" required>
+                                <label for="telefono_movil" class="form-label">Telefono Celular</label>
+                                <input type="text" value="{{$empleado->telefono_movil}}" class="form-control form-control-sm col-md-3 col-lg-2" id="telefono_movil" name="telefono_movil" maxlength="9" required>
                             </div>
                         </div>
                         
@@ -96,14 +96,15 @@
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered table-condensed table-hover text-left">
                                         <thead class="table-dark">
-                                            <th>Nombre del Descuento</th>
+                                            <th>Nombre</th>
                                             <th>Monto</th>
                                         </thead>
                                         @foreach ($descuentos as $descuento)
                                         <tr>
-                                            <td>{{ $descuento->nombre}}</td>
+                                            <td>{{ $descuento->descuento->nombre}}</td>
                                             <td>
-                                                <input type="number" name="montos[{{ $descuento->id }}]" class="form-control" step="0.01" min="0" value="0">
+                                                <!-- <input type="number" name="montos[{{ $descuento->id }}]" class="form-control" step="0.01" min="0" value="0"> -->
+                                                {{ $descuento->monto}}
                                             </td>
                                         </tr>
                                         @endforeach

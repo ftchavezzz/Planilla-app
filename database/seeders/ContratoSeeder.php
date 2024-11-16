@@ -13,7 +13,7 @@ class ContratoSeeder extends Seeder
      */
     public function run(): void
     {
-        /*DB::table('contratos')->insert([
+        DB::table('contratos')->insert([
             ['id' => '1', 'tipo_contrato' => 'Contrato a Plazo Fijo', 'porcentaje_salario_hora' => NULL],
             ['id' => '2', 'tipo_contrato' => 'Contrato Indefinido', 'porcentaje_salario_hora' => NULL],
             ['id' => '3', 'tipo_contrato' => 'Contrato por Servicios Profesionales', 'porcentaje_salario_hora' => NULL],
@@ -22,6 +22,6 @@ class ContratoSeeder extends Seeder
             ['id' => '6', 'tipo_contrato' => 'Contrato de Trabajo Temporal', 'porcentaje_salario_hora' => NULL],
             ['id' => '7', 'tipo_contrato' => 'Contrato de Aprendizaje', 'porcentaje_salario_hora' => NULL],
             ['id' => '8', 'tipo_contrato' => 'Contrato a Tiempo Parcial', 'porcentaje_salario_hora' => 1.0]
-        ]);*/
+        ]);
     }
 }

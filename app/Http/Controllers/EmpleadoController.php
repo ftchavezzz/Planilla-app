@@ -38,28 +38,6 @@ class EmpleadoController extends Controller
      */
     public function store(StoreEmpleadoRequest $request)
     {
-        // $request->validate([
-        //     'fecha_nacimiento' => 'required|date|before:today',
-        // ]);
-
-        // Validación de datos
-        /*$validatedData = $request->validate([
-            'puesto_id' => 'required|integer',
-            'nombre' => 'required|string|max:255',
-            'dui' => 'required|string|max:255',
-            'telefono_fijo' => 'required|string|max:255',
-            'telefono_movil' => 'required|string|max:255',
-            // 'fecha_ingreso' => 'required|date',
-            'fecha_nacimiento' => 'required|date',
-            // 'email' => 'email|max:255',
-            // 'activo' => 'boolean'
-            // 'posicion' => 'required|string|max:255',
-        ]);
-
-        // Guardar el empleado (lógica de almacenamiento aquí)
-        $empleado = Empleado::create($validatedData);
-
-        return redirect()->route('principal')->with('success', 'Empleado creado con éxito.');*/
         try {
 
             // Validación de datos
@@ -82,6 +60,7 @@ class EmpleadoController extends Controller
             $validatedDataEC = $request->validate([ 
                 'contrato_id' => 'required|integer',
                 'fecha_ingreso' => 'required|date',
+                'fecha_fin' => 'required|date',
                 'vigente' => 'boolean',
             ]);
 
@@ -93,38 +72,104 @@ class EmpleadoController extends Controller
         } catch (\Exception $e) {
             dd($e->getMessage());  // Muestra el error si ocurre
         }
-        return redirect()->route('principal')->with('success', 'Empleado creado con éxito.');
+        return redirect()->route('empleado.index')->with('success', 'Empleado creado con éxito.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Empleado $empleado)
+    public function show($id)
     {
-        //
+        $empleado = Empleado::findOrFail($id);
+        $contratoEmpleado = EmpleadoContrato::where('empleado_id', $id)->first();
+        $puesto = Puesto::where('id', $empleado->puesto_id)->first();
+        $departamento = Departamento::where('id', $puesto->departamento_id)->first();
+        $tipoContrato = Contrato::where('id', $contratoEmpleado->contrato_id)->first();
+        return view("empleado_show", [
+            "empleado"=>$empleado,
+            "contrato" => $contratoEmpleado, 
+            "puesto" => $puesto, 
+            "departamento" => $departamento,
+            "tipoContrato" => $tipoContrato
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Empleado $empleado)
+    public function edit($id)
     {
-        //
+        $empleado = Empleado::findOrFail($id);
+        $contratoEmpleado = EmpleadoContrato::where('empleado_id', $id)->first();
+        $puesto = Puesto::where('id', $empleado->puesto_id)->first();
+        $departamento = Departamento::where('id', $puesto->departamento_id)->first();
+
+        $departamentos = Departamento::all();
+        $puestos = Puesto::all();
+        $tipoContrato = Contrato::all();
+        return view("empleado_edit", ["empleado"=>$empleado, "contrato" => $contratoEmpleado, "puestos" => $puestos, 
+            "departamentos" => $departamentos,
+            "tipoContratos" => $tipoContrato,
+            "depart" => $departamento]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEmpleadoRequest $request, Empleado $empleado)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            // Validación de datos
+            $validatedData = $request->validate([
+                'puesto_id' => 'required|integer',
+                'nombre' => 'required|string|max:255',
+                'dui' => 'required|string|max:255',
+                'telefono_fijo' => 'required|string|max:255',
+                'telefono_movil' => 'required|string|max:255',
+                // 'fecha_ingreso' => 'required|date',
+                'fecha_nacimiento' => 'required|date',
+                'email' => 'email|max:255',
+                'activo' => 'boolean',
+                // 'posicion' => 'required|string|max:255',
+            ]);
+
+            // Guardar el empleado 
+            $empleado = Empleado::findOrFail($id);
+
+            $empleado->update($validatedData);
+        
+            $validatedDataEC = $request->validate([ 
+                'contrato_id' => 'required|integer',
+                'fecha_inicio' => 'required|date',
+                'fecha_fin' => 'required|date',
+                'vigente' => 'boolean',
+            ]);
+
+            //Asignando el id empleado al contrato_empleado
+            $validatedDataEC['empleado_id'] = $empleado->id;
+
+            $contratoEmpleado = EmpleadoContrato::where('empleado_id', $id)->first();
+            $contratoEmpleado->update($validatedDataEC);
+
+        
+        } catch (\Exception $e) {
+            dd($e->getMessage());  // Muestra el error si ocurre
+        }
+        return redirect()->route('empleado.index')->with('success', 'Empleado creado con éxito.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Empleado $empleado)
+    public function destroy($id)
     {
         //
+        $empleado = Empleado::findOrFail($id);
+        if ($empleado) {
+            $empleado->delete(); // Elimina el registro
+            return redirect()->route('empleado.index')->with('success', 'Empleado eliminado exitosamente.');
+        } else {
+            return redirect()->route('empleado.index')->with('error', 'Empleado no encontrado.');
+        }
     }
 }

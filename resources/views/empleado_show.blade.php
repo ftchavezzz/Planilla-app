@@ -39,8 +39,8 @@
                                 <input type="text" value="{{$empleado->telefono_fijo}}" class="form-control form-control-sm col-md-3 col-lg-2" id="telefono_fijo" name="telefono_fijo" maxlength="9" required>
                             </div>
                             <div class="col-6 col-md-6 col-lg-6">
-                                <label for="telefono_mobile" class="form-label">Telefono Celular</label>
-                                <input type="text" value="{{$empleado->telefono_mobile}}" class="form-control form-control-sm col-md-3 col-lg-2" id="telefono_mobile" name="telefono_mobile" maxlength="9" required>
+                                <label for="telefono_movil" class="form-label">Telefono Celular</label>
+                                <input type="text" value="{{$empleado->telefono_movil}}" class="form-control form-control-sm col-md-3 col-lg-2" id="telefono_movil" name="telefono_movil" maxlength="9" required>
                             </div>
                         </div>
                         

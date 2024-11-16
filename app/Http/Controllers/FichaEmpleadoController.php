@@ -74,8 +74,8 @@ class FichaEmpleadoController extends Controller
         $puesto = Puesto::where('id', $empleado->puesto_id)->first();
         $departamento = Departamento::where('id', $puesto->departamento_id)->first();
         $tipoContrato = Contrato::where('id', $contratoEmpleado->contrato_id)->first();
-        $descuentos = Descuento::all();
-        
+        $descuentos = EmpleadoDescuento::where('empleado_id', $id)->with('descuento')->get();
+        // dd($descuentos);
         return view("ficha_empleado", [
             "empleado"=>$empleado,
             "contrato" => $contratoEmpleado, 

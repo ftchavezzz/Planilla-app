@@ -14,4 +14,10 @@ class EmpleadoDescuento extends Model
         'descuento_id',
         'monto',
     ];
+
+    // En el modelo EmpleadoDescuento
+    public function descuento()
+    {
+        return $this->belongsTo(Descuento::class, 'descuento_id', 'id');
+    }
 }

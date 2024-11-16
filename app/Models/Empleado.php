@@ -30,7 +30,7 @@ class Empleado extends Model
     }
 
     public function descuentos() {
-        return $this->belongsToMany(Descuento::class, 'empleado_descuento', 'empleado_id', 'descuento_id');
+        return $this->belongsToMany(Descuento::class, 'empleado_descuentos', 'empleado_id', 'descuento_id');
     }
 
     public function contratos() {
