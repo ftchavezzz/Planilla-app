@@ -25,6 +25,9 @@
                             <a class="nav-link " href="">Departamentos</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link {{ request()->is('puestos') ? 'active' : '' }}" href="{{ route('puesto.index') }}">Puestos</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link " href="{{ route('listacontratos') }}">Lista de Contratos</a>
                         </li>
                         <li class="nav-item">

@@ -10,6 +10,7 @@ class Puesto extends Model
     use HasFactory;
 
     protected $fillable = [
+        'departamento_id',
         'nombre',
         'descripcion',
         'salario_mensual',

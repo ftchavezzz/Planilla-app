@@ -5,6 +5,7 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\SalarioController;
 use App\Http\Controllers\FichaEmpleadoController;
 use App\Http\Controllers\ContratoController;
+use App\Http\Controllers\PuestoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +50,11 @@ Route::post('/contrato/agregarpago', [ContratoController::class, 'add'])->name('
 
 //ruta para eliminar empleado
 Route::delete('/empleado/{id}', [EmpleadoController::class, 'destroy'])->name('empleado.destroy');
+
+// Rutas de puesto
+Route::get('/puestos', [PuestoController::class, 'index'])->name('puesto.index');
+Route::get('/puestos/crear', [PuestoController::class, 'create'])->name('puesto.create');
+Route::post('/puestos', [PuestoController::class, 'store'])->name('puesto.store');
+Route::get('/puestos/{id}/edit', [PuestoController::class, 'edit'])->name('puesto.edit');
+Route::put('/puestos/{id}', [PuestoController::class, 'update'])->name('puesto.update');
+Route::delete('/puestos/{id}', [PuestoController::class, 'destroy'])->name('puesto.destroy');
