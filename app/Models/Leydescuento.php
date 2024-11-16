@@ -22,6 +22,10 @@ class Leydescuento extends Model
         return self::pluck('nombre')->toArray();
     }
 
+    private function salarios() {
+        return $this->belonsToMany(Salario::class);
+    }
+
     /**
      * Calcula los descuentos de ley aplicables y los devuelve en un arreglo de valores reales
      */

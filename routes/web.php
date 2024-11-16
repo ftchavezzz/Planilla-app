@@ -28,7 +28,11 @@ Route::get('/', function () {
 Route::get('/empleado/crear', [EmpleadoController::class, 'create'])->name('empleado.create');
 Route::post('/empleado', [EmpleadoController::class, 'store'])->name('empleado.store');
 
-Route::get('/salario', [SalarioController::class, 'create'])->name('salario.create');
+Route::get('/salario/seleccion', [SalarioController::class, 'create'])->name('guardarPlanilla');
+Route::post('/salario/guardando', [SalarioController::class, 'store'])->name('obtenerSalarioDelPeriodo');
+Route::get('/salario/solicitud', [SalarioController::class, 'solicitarPlanilla'])->name('solicitudPlanilla');
+Route::post('/salario/crear', [SalarioController::class, 'crearPlanilla'])->name('crearSolicitudPlanilla');
+Route::post('/salario/enviar', [SalarioController::class, 'guardarPlanilla'])->name('enviarReportePlanilla');
 
 Route::get('/empleado/{id}', [EmpleadoController::class, 'show'])->name('empleado.show');
 Route::get('/empleado', [EmpleadoController::class, 'index'])->name('empleado.index');
@@ -43,6 +47,5 @@ Route::put('/empleado/{id}', [EmpleadoController::class, 'update'])->name('emple
 Route::get('/contrato/lista', [ContratoController::class, 'index'])->name('listacontratos');
 Route::get('/contrato/crear', [ContratoController::class, 'create'])->name('crearContrato');
 Route::post('/contrato', [ContratoController::class, 'store'])->name('guardarContrato');
-Route::get('/contrato/{contrato}', [ContratoController::class, 'show'])->name('francisco.ticas');
+Route::get('/contrato/{contrato}', [ContratoController::class, 'show'])->name('verContrato');
 Route::post('/contrato/agregarpago', [ContratoController::class, 'add'])->name('agregarPagoContrato');
-

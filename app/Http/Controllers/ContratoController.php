@@ -33,20 +33,21 @@ class ContratoController extends Controller
      */
     public function store(StoreContratoRequest $request)
     {
+        //dd($request);
         try {
             DB::beginTransaction();
 
             $validatedData = $request->validated([
                 'tipo_contrato' => 'required|string|max:255',
-                'porcentaje_salario_hora' => 'required|numeric'
+                'tipo' => 'required|numeric'
             ]);
             $contrato = new Contrato();
             $contrato->tipo_contrato = $request->tipo_contrato;
-            $contrato->porcentaje_salario_hora = $request->porcentaje_salario_hora;
+            $contrato->pago_por_hora = $request->tipo;
             $contrato->save();
 
-            $pagos = [1, 2, 3]; // IDs de los pagos que se van a asociar en todos los contratos
-            $contrato->pagos()->attach($pagos);
+            /*$pagos = [1, 2, 3]; // IDs de los pagos que se van a asociar en todos los contratos
+            $contrato->pagos()->attach($pagos);*/
 
             DB::commit();
         } catch (\Throwable $th) {

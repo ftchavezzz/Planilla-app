@@ -24,45 +24,47 @@
                     </div>
                     <div class="row mb-4">
                         <div class="col-6 col-md-6 col-lg-6">
-                            <label for="dui" class="form-label">Porcentaje Salario</label>
-                            <input type="text" class="form-control form-control-sm col-md-3 col-lg-2" readonly value='{{number_format($contrato->porcentaje_salario_hora, 2)}}' id="porcentaje_salario_hora" placeholder="% de salario correspondiente" name="porcentaje_salario_hora" maxlength="9" required>
+                            <label for="dui" class="form-label">Tipo de pago</label>
+                            <input type="text" class="form-control form-control-sm col-md-3 col-lg-2" readonly value='{{ $contrato->pago_por_hora==0? "Sueldo fijo": "Pago por hora" }}' id="porcentaje_salario_hora" placeholder="% de salario correspondiente" name="porcentaje_salario_hora" maxlength="9" required>
                             @error('dui')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
-                    <form action="{{route('agregarPagoContrato')}}" method="POST">
-                        @csrf <!-- Protección contra CSRF -->
-                        
-                        <div class="container">
-                            <div class="row">
-                                <input type="text" name="contrato_id" id="contrato_" value='{{$contrato->id}}' hidden>
-                                <span class="card-title">Agregar beneficios de pago al contrato</span>
-                                <div class="row mb-4">
-                                    <div class="col-6 col-md-6 col-lg-6">
-                                        <label for="departamento" class="form-label">Pago</label>
-                                        <select class="form-select form-select-sm col-md-3 col-lg-2" id="pago_id" placeholder="Seleccione el pago" name="pago_id">
-                                            <option value="">--Escoja un pago--</option>
-                                            @foreach($pagosDisponibles as $pagoDisponible)
-                                                <option value="{{$pagoDisponible['id']}}"> {{$pagoDisponible['nombre']}}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col mb-4 ">
-                                    <button type="submit" class="btn btn-primary">Agregar</button>
-                                </div>
-                            </div>
-                        </div>   
-                    </form>
                 </div>
             </div>
         </div>
 
-        
+        <div>
+            <div>
+                <form action="{{route('agregarPagoContrato')}}" method="POST">
+                    @csrf <!-- Protección contra CSRF -->
+                    
+                    <div class="container">
+                        <div class="row">
+                            <input type="text" name="contrato_id" id="contrato_" value='{{$contrato->id}}' hidden>
+                            <div class="row mb-4">
+                                <div class="col-6 col-md-6 col-lg-6">
+                                    <label for="departamento" class="form-label">Agregar beneficios de pago al contrato</label>
+                                    <select class="form-select form-select-sm col-md-3 col-lg-2" id="pago_id" placeholder="Seleccione el pago" name="pago_id">
+                                        <option value="">--Escoja un pago--</option>
+                                        @foreach($pagosDisponibles as $pagoDisponible)
+                                            <option value="{{$pagoDisponible['id']}}"> {{$pagoDisponible['nombre']}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-4 ">
+                                <button type="submit" class="btn btn-primary">Agregar</button>
+                            </div>
+                        </div>
+                    </div>   
+                </form>
+            </div>
+        </div>
         
 
         @if(is_null($pagos) or count($pagos) == 0)
@@ -84,7 +86,13 @@
                         <tr>
                             <td>{{$pago->id}}</td>
                             <td>{{$pago->nombre}}</td>
-                            <th></th>
+                            <th>
+                                <a href="#">
+                                    <button class="btn btn-danger">
+                                        <i class="fa-regular fa-trash-can" style="color: white;"></i>
+                                    </button>
+                                </a>
+                            </th>
                         </tr>
                         @endforeach
                     </tbody>

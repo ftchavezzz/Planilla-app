@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('descripcion');
-            $table->float('porcentaje');
+            $table->float('porcentaje', $precision = 8, $scale = 2);
             $table->timestamps();
         });
     }

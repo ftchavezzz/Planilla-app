@@ -11,7 +11,8 @@ class Descuento extends Model
 
     protected $fillable = [
         'nombre',
-        'descripcion'
+        'descripcion',
+        'periodico'
     ];
 
     /**
@@ -23,5 +24,28 @@ class Descuento extends Model
 
     public function empleados() {
         return $this->belongsToMany(Empleado::class, 'empleado_descuento', 'descuento_id', 'empleado_id');
+    }
+
+    public function salarios() {
+        return $this->belongsToMany(Salario::class, 'salario_descuento')->withPivot('monto');
+    }
+
+    public static function ObtenerDescuentosQuincenales($salario_id) {
+        $salario = Salario::find($salario_id);
+        $descuentos = $salario->descuentos;
+        $descuentosOpcionales = Descuento::all();
+        $descuentosAplicables = [];
+        //dd($descuentosOpcionales);
+        foreach ($descuentosOpcionales as $descuentOpcional) {
+            $descuentosAplicables[] = 0;
+        }
+        foreach ($descuentosOpcionales as $key => $descuentOpcional) {
+            foreach ($descuentos as $descuento) {
+                if($descuentOpcional->id == $descuento->id) {
+                    $descuentosAplicables[$key] = $descuento->pivot->monto;
+                }
+            }
+        }
+        return $descuentosAplicables;
     }
 }

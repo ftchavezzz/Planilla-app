@@ -34,25 +34,40 @@ class Empleado extends Model
     }
 
     public function contratos() {
-        return $this->belonsToMany(Contrato::class, 'empleado_contratos', 'empleado_id', 'contrato_id');
+        return $this->belongsToMany(Contrato::class, 'empleado_contratos', 'empleado_id', 'contrato_id');
+    }
+
+    public function salarios() {
+        return $this->hasMany(Salario::class);
     }
 
     /**
-     * Devuelve el salario bruto del empleado
+     * Devuelve un valor booleano que determina si ya existe un reporte enviado en el periodo determinado
      */
-    public function obtenerSalarioBruto() {
-        $puestoEmpleado = $this->puesto;
-        $salarioBruto = $puestoEmpleado->salario_mensual;
-        //verificar si el contrato tiene un salario fijo o se calcula por hora
-        //para probar se utilizara por defecto que tiene un salario fijo
-        return $salarioBruto;
+    public function reportePlanillaRevisado($anio, $mes, $quincena) {
+        $salario = $this->salarios()->where('anio', $anio)->where('mes', $mes)->where('quincena', $quincena)->get();
+        return count($salario) > 0? $salario[0]: null;
     }
 
     /**
-     * Devuelve un arreglo que contiene el valor de descuento que se aplicara a cada tipo de descuento
+     * Devuelve el salario bruto del empleado el cual incluye el salario y las remuneraciones adicionales
      */
+    public function obtenerSalarioBrutoQuincenal($salario_id) {
+        $salario = Salario::find($salario_id);
+        $pagos = $salario->pagos;
+        $totalSalarioRemuneraciones = $salario->salario_ordinario;
+        foreach ($pagos as $pago) {
+            if ($pago->esDeducible()) {
+                $totalSalarioRemuneraciones += $pago->pivot->monto;
+            }
+        }
+        return $totalSalarioRemuneraciones;
+    }
+
+
+    
     public function calcularDescuentos() {
-        $salarioBrutoQuincenal = $this->obtenerSalarioBruto() / 2;
+        $salarioBrutoQuincenal = $this->obtenerSalarioBrutoQuincenal();
         $descuentosLey = Leydescuento::obtenerDescuentosLeyQuincenales($salarioBrutoQuincenal);
         $descuentosOpcionales = Descuento::all();
         $descuentos = [];

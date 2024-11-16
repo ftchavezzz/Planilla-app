@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('salarios', function (Blueprint $table) {
             $table->id();
             $table->foreignId('empleado_id')->constrained();
+            $table->string('anio');
+            $table->string('mes');
+            $table->boolean('quincena');
             $table->date('fecha_inicio');
             $table->date('fecha_corte');
+            $table->float('horas_trabajadas');
             $table->decimal('salario_ordinario', $precision = 8, $scale = 2);
             $table->decimal('pago_bruto', $precision = 8, $scale = 2);
             $table->decimal('pago_realizado', $precision = 8, $scale = 2);

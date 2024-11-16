@@ -19,4 +19,8 @@ class Puesto extends Model
     public function empleados() {
         return $this->hasMany(Empleado::class);
     }
+
+    public function departamento() {
+        return $this->belongsTo(Departamento::class);
+    }
 }
