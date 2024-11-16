@@ -183,7 +183,7 @@ class SalarioController extends Controller
     public function guardarPlanilla(Request $request) {
         //dd($request);
 
-        //try {
+        try {
             $empleado = Empleado::find($request->empleado_id);
             $puesto = $empleado->puesto;
             $salario_ordinario = $puesto->salario_mensual;
@@ -255,10 +255,10 @@ class SalarioController extends Controller
             }
 
             DB::commit();
-        /*} catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             DB::rollBack();
             return "error";
-        }*/
+        }
         $meses = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agostyo", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         $salarioRevisado = $salario;
         $mes = $meses[$salario->mes];

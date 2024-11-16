@@ -81,6 +81,8 @@
                 </div>
             </div>
         </div>
+
+        <a href="{{route('solicitudPlanilla')}}"><button class="btn btn-primary">Reportar otro trabajador</button></a>
     </div>  
 </div>
 

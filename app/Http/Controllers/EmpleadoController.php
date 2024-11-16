@@ -167,11 +167,8 @@ class EmpleadoController extends Controller
     {
         //
         $empleado = Empleado::findOrFail($id);
-        if ($empleado) {
-            $empleado->delete(); // Elimina el registro
-            return redirect()->route('empleado.index')->with('success', 'Empleado eliminado exitosamente.');
-        } else {
-            return redirect()->route('empleado.index')->with('error', 'Empleado no encontrado.');
-        }
+        $empleado->activo = false;
+        $empleado->save();
+        return redirect()->route('empleado.index')->with('success', 'Empleado eliminado exitosamente.');
     }
 }

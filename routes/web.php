@@ -6,6 +6,7 @@ use App\Http\Controllers\SalarioController;
 use App\Http\Controllers\FichaEmpleadoController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\PuestoController;
+use App\Http\Controllers\PlanillaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,8 @@ Route::post('/contrato', [ContratoController::class, 'store'])->name('guardarCon
 Route::get('/contrato/{contrato}', [ContratoController::class, 'show'])->name('verContrato');
 Route::post('/contrato/agregarpago', [ContratoController::class, 'add'])->name('agregarPagoContrato');
 
+Route::get('/planilla/ver', [PlanillaController::class, 'create'])->name('recordPlanilla');
+Route::post('/planilla/mostrar', [PlanillaController::class, 'store'])->name('consultarRecordPlanilla');
 
 //ruta para eliminar empleado
 Route::delete('/empleado/{id}', [EmpleadoController::class, 'destroy'])->name('empleado.destroy');
