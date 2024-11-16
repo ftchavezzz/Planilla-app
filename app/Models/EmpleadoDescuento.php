@@ -14,7 +14,7 @@ class EmpleadoDescuento extends Model
         'descuento_id',
         'monto',
     ];
-
+    protected $table = "empleado_descuento";
     // En el modelo EmpleadoDescuento
     public function descuento()
     {

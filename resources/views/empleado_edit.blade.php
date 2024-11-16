@@ -54,9 +54,9 @@
                                 @enderror
                             </div>
                             <div class="col-6 col-md-6 col-lg-6">
-                                <label for="telefono_mobile" class="form-label">Telefono Celular</label>
-                                <input type="text" class="form-control form-control-sm col-md-3 col-lg-2" id="telefono_mobile" value="{{$empleado->telefono_mobile}}" placeholder="Ingresa el numero celular del empleado" name="telefono_mobile" maxlength="9" required>
-                                @error('telefono_mobile')
+                                <label for="telefono_movil" class="form-label">Telefono Celular</label>
+                                <input type="text" class="form-control form-control-sm col-md-3 col-lg-2" id="telefono_movil" value="{{$empleado->telefono_movil}}" placeholder="Ingresa el numero celular del empleado" name="telefono_movil" maxlength="9" required>
+                                @error('telefono_movil')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -155,7 +155,7 @@
             formatPhoneNumber(e.target);
         });
 
-        document.getElementById('telefono_mobile').addEventListener('input', function (e) {
+        document.getElementById('telefono_movil').addEventListener('input', function (e) {
             formatPhoneNumber(e.target);
         });
     </script>
