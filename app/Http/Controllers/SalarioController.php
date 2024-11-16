@@ -183,7 +183,7 @@ class SalarioController extends Controller
     public function guardarPlanilla(Request $request) {
         //dd($request);
 
-        try {
+        //try {
             $empleado = Empleado::find($request->empleado_id);
             $puesto = $empleado->puesto;
             $salario_ordinario = $puesto->salario_mensual;
@@ -218,27 +218,47 @@ class SalarioController extends Controller
                 'revisado'=> true
             ]);
 
+            //dd($request);
+
             //salario_descuento
             foreach ($request->descuentos as $descuento) {
-                $salario->descuentos()->attach(
-                    $descuento['id'],
-                    ['monto' => $descuento['valor']]
-                );
+                //dd($descuento['valor']);
+                if (is_null($descuento['valor'])) {
+                    $salario->descuentos()->attach(
+                        $descuento['id'],
+                        ['monto' => 0]
+                    );
+                }
+                else {
+                    $salario->descuentos()->attach(
+                        $descuento['id'],
+                        ['monto' => $descuento['valor']]
+                    );
+                }
             }
-
             //salario_pago
-            foreach ($request->pagos as $pago) {
-                $salario->pagos()->attach(
-                    $pago['id'],
-                    ['monto' => $pago['valor']]
-                );
+            if (!is_null($request->pagos)) {
+                foreach ($request->pagos as $pago) {
+                    if (is_null($pago['valor'])) {
+                        $salario->pagos()->attach(
+                            $pago['id'],
+                            ['monto' => 0]
+                        );
+                    }
+                    else {
+                        $salario->pagos()->attach(
+                            $pago['id'],
+                            ['monto' => $pago['valor']]
+                        );
+                    }
+                }
             }
 
             DB::commit();
-        } catch (\Throwable $th) {
+        /*} catch (\Throwable $th) {
             DB::rollBack();
             return "error";
-        }
+        }*/
         $meses = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agostyo", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         $salarioRevisado = $salario;
         $mes = $meses[$salario->mes];

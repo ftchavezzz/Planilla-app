@@ -10,6 +10,7 @@ use App\Models\EmpleadoContrato;
 use App\Http\Requests\StoreEmpleadoRequest;
 use App\Http\Requests\UpdateEmpleadoRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmpleadoController extends Controller
 {
@@ -39,7 +40,7 @@ class EmpleadoController extends Controller
     public function store(StoreEmpleadoRequest $request)
     {
         try {
-
+            DB::beginTransaction();
             // Validación de datos
             $validatedData = $request->validate([
                 'puesto_id' => 'required|integer',
@@ -60,7 +61,6 @@ class EmpleadoController extends Controller
             $validatedDataEC = $request->validate([ 
                 'contrato_id' => 'required|integer',
                 'fecha_ingreso' => 'required|date',
-                'fecha_fin' => 'required|date',
                 'vigente' => 'boolean',
             ]);
 
@@ -69,7 +69,9 @@ class EmpleadoController extends Controller
             $validatedDataEC['fecha_inicio'] = $validatedDataEC['fecha_ingreso'];
 
             $empleado_contrato = EmpleadoContrato::create($validatedDataEC);
+            DB::commit();
         } catch (\Exception $e) {
+            DB::rollBack();
             dd($e->getMessage());  // Muestra el error si ocurre
         }
         return redirect()->route('empleado.index')->with('success', 'Empleado creado con éxito.');
