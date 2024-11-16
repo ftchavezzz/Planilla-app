@@ -21,17 +21,17 @@
                         <thead class="table-dark">
                             <th>No.</th>
                             <th>Tipo de contrato</th>
-                            <th>Porcentaje de Salario</th>
+                            <th>Tipo de pago</th>
                             <th>Opciones</th>
                         </thead>
                         @foreach ($contratos as $contrato)
                         <tr>
                             <td>{{ $contrato->id}}</td>
                             <td>{{ $contrato->tipo_contrato}}</td>
-                            <td>{{ number_format($contrato->porcentaje_salario_hora, 2)}}</td>
+                            <td>{{ $contrato->pago_por_hora==0? 'Sueldo fijo': 'Pago por hora' }}</td>
                             <td>
                             <a href="#"><button class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i></button></a>
-                                <a href="{{ route('verContrato', $contrato->id) }}"><button class="btn btn-info"><i class="fa-regular fa-eye" style="color: white;"></i></button></a>
+                            <a href="{{ route('verContrato', $contrato->id) }}"><button class="btn btn-info"><i class="fa-regular fa-eye" style="color: white;"></i></button></a>
                             </td>
                         </tr>
                         @endforeach

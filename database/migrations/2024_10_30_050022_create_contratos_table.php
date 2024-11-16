@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('contratos', function (Blueprint $table) {
             $table->id();
             $table->string('tipo_contrato');
-            $table->float('porcentaje_salario_hora')->nullable($value = true);
+            $table->boolean('pago_por_hora')->nullable($value = true);
             $table->timestamps();
         });
     }

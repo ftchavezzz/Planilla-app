@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="container">
-        <h1>Generacion de planilla</h1>
+        <h1>Planilla procesada</h1>
         
         <form action="{{ route('obtenerSalarioDelPeriodo') }}" method="POST">
             @csrf <!-- Protección contra CSRF -->
@@ -80,12 +80,6 @@
                         </tbody>
                     </table>
 
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col mb-4 ">
-                    <button type="submit" class="btn btn-primary">Generar Planilla</button>
                 </div>
             </div>
 
